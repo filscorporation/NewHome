@@ -8,6 +8,8 @@ namespace Assets.Source
     /// </summary>
     public class MapManager : MonoBehaviour
     {
+        [SerializeField] private GameObject previewObject;
+
         [SerializeField] private float groundHeight = 0F;
         [SerializeField] private GameObject groundPrefab;
         [SerializeField] private float backgroundLayer1Height = 0F;
@@ -37,13 +39,15 @@ namespace Assets.Source
 
         private void Start()
         {
+            if (previewObject != null) previewObject.SetActive(false);
+
             cameraWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
             Sprite sprite = groundPrefab.GetComponent<SpriteRenderer>().sprite;
-            groundTileWidth = sprite.rect.width / sprite.pixelsPerUnit;
+            groundTileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
             sprite = backgroundLayer1Prefab.GetComponent<SpriteRenderer>().sprite;
-            backgroundLayer1TileWidth = sprite.rect.width / sprite.pixelsPerUnit;
+            backgroundLayer1TileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
             sprite = backgroundLayer2Prefab.GetComponent<SpriteRenderer>().sprite;
-            backgroundLayer2TileWidth = sprite.rect.width / sprite.pixelsPerUnit;
+            backgroundLayer2TileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
             pivotLastX = parallaxPivot.transform.position.x;
             pivotLastTileRebuldingX = parallaxPivot.transform.position.x;
 
