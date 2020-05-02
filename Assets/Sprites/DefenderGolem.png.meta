@@ -1,0 +1,586 @@
+fileFormatVersion: 2
+guid: 96b7d6934a6fd044aa7a8373d41f6149
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5521036905821803089
+    second: DefenderGolem_0
+  - first:
+      213: -2256676569279139844
+    second: DefenderGolem_1
+  - first:
+      213: 4280258097416854739
+    second: DefenderGolem_2
+  - first:
+      213: 4667576769821685387
+    second: DefenderGolem_3
+  - first:
+      213: -8757437287100617615
+    second: DefenderGolem_4
+  - first:
+      213: 4637220079168174986
+    second: DefenderGolem_5
+  - first:
+      213: 6453838791602043371
+    second: DefenderGolem_6
+  - first:
+      213: -1244856714878841852
+    second: DefenderGolem_7
+  - first:
+      213: -1093188503161348729
+    second: DefenderGolem_8
+  - first:
+      213: 2771131080013899960
+    second: DefenderGolem_9
+  - first:
+      213: -8094630948125381375
+    second: DefenderGolem_10
+  - first:
+      213: 7352126617939419870
+    second: DefenderGolem_11
+  - first:
+      213: -1442239768716737899
+    second: DefenderGolem_12
+  - first:
+      213: 6664965186330714679
+    second: DefenderGolem_13
+  - first:
+      213: -2589931896640354950
+    second: DefenderGolem_14
+  - first:
+      213: -5460705668315475147
+    second: DefenderGolem_15
+  - first:
+      213: -8145262365790559287
+    second: DefenderGolem_16
+  - first:
+      213: -5192114920250820832
+    second: DefenderGolem_17
+  - first:
+      213: 6446802487363294836
+    second: DefenderGolem_18
+  - first:
+      213: -6397227509358839610
+    second: DefenderGolem_19
+  - first:
+      213: 2525471977888529571
+    second: DefenderGolem_20
+  - first:
+      213: 947621472561161968
+    second: DefenderGolem_21
+  - first:
+      213: 6524120467223437013
+    second: DefenderGolem_22
+  - first:
+      213: -1244586241126635814
+    second: DefenderGolem_23
+  - first:
+      213: 3779486023901035578
+    second: DefenderGolem_24
+  - first:
+      213: 4677919541461136550
+    second: DefenderGolem_25
+  - first:
+      213: -8134171578301756962
+    second: DefenderGolem_26
+  - first:
+      213: -2026185974744749180
+    second: DefenderGolem_27
+  - first:
+      213: 3725106518012178769
+    second: DefenderGolem_28
+  - first:
+      213: 5418853715884164913
+    second: DefenderGolem_29
+  - first:
+      213: -4512236360494824760
+    second: DefenderGolem_30
+  - first:
+      213: 7987550533834780982
+    second: DefenderGolem_31
+  - first:
+      213: 2237817244822432580
+    second: DefenderGolem_32
+  - first:
+      213: 1261370560718895506
+    second: DefenderGolem_33
+  - first:
+      213: 2173587645190763685
+    second: DefenderGolem_34
+  - first:
+      213: 3938781260166604113
+    second: DefenderGolem_35
+  - first:
+      213: -5084495857150908807
+    second: DefenderGolem_36
+  - first:
+      213: -3012239102772764416
+    second: DefenderGolem_37
+  - first:
+      213: 8536027639594942466
+    second: DefenderGolem_38
+  - first:
+      213: -8473222516077161620
+    second: DefenderGolem_39
+  - first:
+      213: 2914952463413735873
+    second: DefenderGolem_40
+  - first:
+      213: 4599251385760458150
+    second: DefenderGolem_41
+  - first:
+      213: 7767247464872409487
+    second: DefenderGolem_42
+  - first:
+      213: -2586305050052949187
+    second: DefenderGolem_43
+  - first:
+      213: -44992213372403729
+    second: DefenderGolem_44
+  - first:
+      213: 1186588864434756036
+    second: DefenderGolem_45
+  - first:
+      213: 594106496852528369
+    second: DefenderGolem_46
+  - first:
+      213: 7887921267461939878
+    second: DefenderGolem_47
+  - first:
+      213: 1867514359719269422
+    second: DefenderGolem_48
+  - first:
+      213: 7636966720836069668
+    second: DefenderGolem_49
+  - first:
+      213: -1561665917198459400
+    second: DefenderGolem_50
+  - first:
+      213: -2379345063284959000
+    second: DefenderGolem_51
+  - first:
+      213: 8209511999282128246
+    second: DefenderGolem_52
+  - first:
+      213: 8701880482269120400
+    second: DefenderGolem_53
+  - first:
+      213: 6240159902566115949
+    second: DefenderGolem_54
+  - first:
+      213: -2777709703938703084
+    second: DefenderGolem_55
+  - first:
+      213: -8082490612376884960
+    second: DefenderGolem_56
+  - first:
+      213: 8431523917000263259
+    second: DefenderGolem_57
+  - first:
+      213: -2999464598862920749
+    second: DefenderGolem_58
+  - first:
+      213: -5092682294500113329
+    second: DefenderGolem_59
+  - first:
+      213: -5724183206631735920
+    second: DefenderGolem_60
+  - first:
+      213: 1415060285198500185
+    second: DefenderGolem_61
+  - first:
+      213: -6114869308742931775
+    second: DefenderGolem_62
+  - first:
+      213: -5920450768506456349
+    second: DefenderGolem_63
+  - first:
+      213: -3774992356839397499
+    second: DefenderGolem_64
+  - first:
+      213: 8314386873420529834
+    second: DefenderGolem_65
+  - first:
+      213: -129467306299455952
+    second: DefenderGolem_66
+  - first:
+      213: 5151747647169138310
+    second: DefenderGolem_67
+  - first:
+      213: -5110344274816755577
+    second: DefenderGolem_68
+  - first:
+      213: -3680403121480784514
+    second: DefenderGolem_69
+  - first:
+      213: -5173016354393136664
+    second: DefenderGolem_70
+  - first:
+      213: -975170252417887792
+    second: DefenderGolem_71
+  - first:
+      213: -5767550457789341111
+    second: DefenderGolem_72
+  - first:
+      213: -5999343504928711207
+    second: DefenderGolem_73
+  - first:
+      213: -5403355938716123243
+    second: DefenderGolem_74
+  - first:
+      213: 4693288872435313909
+    second: DefenderGolem_75
+  - first:
+      213: 4626254633718491834
+    second: DefenderGolem_76
+  - first:
+      213: 2382987666263871142
+    second: DefenderGolem_77
+  - first:
+      213: 4544831540237249318
+    second: DefenderGolem_78
+  - first:
+      213: 3599755915112635721
+    second: DefenderGolem_79
+  - first:
+      213: 638263249897493744
+    second: DefenderGolem_80
+  - first:
+      213: 6723536771588245074
+    second: DefenderGolem_81
+  - first:
+      213: 3035447818324378303
+    second: DefenderGolem_82
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DefenderGolem_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fad6ba49f265163b0800000000000000
+      internalID: -5521036905821803089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DefenderGolem_1
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cff6b2bdd9caea0e0800000000000000
+      internalID: -2256676569279139844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DefenderGolem_2
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dc5583df08866b30800000000000000
+      internalID: 4280258097416854739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DefenderGolem_3
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b86361f975096c040800000000000000
+      internalID: 4667576769821685387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DefenderGolem_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17c6b9faf25577680800000000000000
+      internalID: -8757437287100617615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DefenderGolem_5
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8bb02cc717ba5040800000000000000
+      internalID: 4637220079168174986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DefenderGolem_6
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be97313ef24a09950800000000000000
+      internalID: 6453838791602043371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DefenderGolem_7
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40c0361d96169bee0800000000000000
+      internalID: -1244856714878841852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DefenderGolem_8
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78dd68c29d634d0f0800000000000000
+      internalID: -1093188503161348729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DefenderGolem_9
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 0
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b8e5420909057620800000000000000
+      internalID: 2771131080013899960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
