@@ -15,13 +15,13 @@ namespace Assets.Source.Objects
         [SerializeField] private float flyAmplitude = 0.5F;
         private float flyOffset;
 
-        public void Start()
+        private void Start()
         {
             basePosition = transform.position;
             flyOffset = Random.Range(0, 1F);
         }
 
-        public void Update()
+        private void Update()
         {
             if (Animate)
                 Fly();
