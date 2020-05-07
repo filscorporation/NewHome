@@ -8,14 +8,16 @@ namespace Assets.Source
     /// </summary>
     public class MapManager : MonoBehaviour
     {
+        [SerializeField] [Range(10, 1000)] private int mapSize = 100;
+        [SerializeField] [Range(1, 100)] private int clearRange = 10;
+
         [SerializeField] private GameObject previewObject;
 
-        [SerializeField] private float groundHeight = 0F;
+        [Header("Parallax")]
         [SerializeField] private GameObject groundPrefab;
-        [SerializeField] private float backgroundLayer1Height = 0F;
         [SerializeField] private GameObject backgroundLayer1Prefab;
-        [SerializeField] private float backgroundLayer2Height = 0F;
         [SerializeField] private GameObject backgroundLayer2Prefab;
+        [SerializeField] private List<GameObject> clouds;
         private readonly LinkedList<GameObject> groundTiles = new LinkedList<GameObject>();
         private float groundTileWidth;
         private float groundLeftBorder = 0;
@@ -24,12 +26,21 @@ namespace Assets.Source
         private float backgroundLayer1TileWidth;
         private float backgroundLayer1LeftBorder = 0;
         private float backgroundLayer1RightBorder = 0;
-        [SerializeField] private float layer1ParallaxFactor = 0.8F;
+        [SerializeField] private float layer1ParallaxFactor = 0.2F;
         private readonly LinkedList<GameObject> backgroundLayer2Tiles = new LinkedList<GameObject>();
         private float backgroundLayer2TileWidth;
         private float backgroundLayer2LeftBorder = 0;
         private float backgroundLayer2RightBorder = 0;
-        [SerializeField] private float layer2ParallaxFactor = 0.9F;
+        [SerializeField] private float layer2ParallaxFactor = 0.1F;
+        private readonly LinkedList<GameObject> cloudsObjects = new LinkedList<GameObject>();
+        private float cloudsLeftBorder = 0;
+        private float cloudsRightBorder = 0;
+        [SerializeField] private float cloudsParallaxFactor = 0.03F;
+        [SerializeField] [Range(0.1F, 5F)] private float cloudsDistance = 1F;
+        [SerializeField] [Range(0, 1F)] private float cloudsSpeed = 0.05F;
+        private float cloudsMinY = -0.5F;
+        private float cloudsMaxY = 1.5F;
+
         private float cameraWidth;
 
         [SerializeField] public Transform parallaxPivot;
@@ -37,21 +48,25 @@ namespace Assets.Source
         private const float rebuildingStep = 1F;
         private float pivotLastX;
 
+        [Header("Generation")]
+        [SerializeField] private List<GameObject> trees;
+        [SerializeField] [Range(0, 1F)] private float treesDensity;
+        [SerializeField] private List<GameObject> smallDetails;
+        [SerializeField] [Range(0, 1F)] private float smallDetailsDensity;
+        [SerializeField] private List<GameObject> bigDetails;
+        [SerializeField] [Range(0, 1F)] private float bigDetailsDensity;
+
+        private Random random;
+
         private void Start()
         {
             if (previewObject != null) previewObject.SetActive(false);
 
-            cameraWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
-            Sprite sprite = groundPrefab.GetComponent<SpriteRenderer>().sprite;
-            groundTileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
-            sprite = backgroundLayer1Prefab.GetComponent<SpriteRenderer>().sprite;
-            backgroundLayer1TileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
-            sprite = backgroundLayer2Prefab.GetComponent<SpriteRenderer>().sprite;
-            backgroundLayer2TileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
-            pivotLastX = parallaxPivot.transform.position.x;
-            pivotLastTileRebuldingX = parallaxPivot.transform.position.x;
-
+            Initialize();
             DrawTiles();
+            GenerateTrees();
+            GenerateBigDetails();
+            GenerateSmallDetails();
         }
 
         private void Update()
@@ -66,6 +81,98 @@ namespace Assets.Source
             Parallax();
 
             pivotLastX = parallaxPivot.transform.position.x;
+
+            MoveClouds();
+        }
+
+        private void Initialize()
+        {
+            cameraWidth = Camera.main.orthographicSize * Screen.width / Screen.height;
+            Sprite sprite = groundPrefab.GetComponent<SpriteRenderer>().sprite;
+            groundTileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
+            sprite = backgroundLayer1Prefab.GetComponent<SpriteRenderer>().sprite;
+            backgroundLayer1TileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
+            sprite = backgroundLayer2Prefab.GetComponent<SpriteRenderer>().sprite;
+            backgroundLayer2TileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
+            pivotLastX = parallaxPivot.transform.position.x;
+            pivotLastTileRebuldingX = parallaxPivot.transform.position.x;
+        }
+
+        private void GenerateTrees()
+        {
+            float pnx = Random.Range(0, 10F);
+            float pny = Random.Range(0, 10F);
+            float minStep = 0.1F;
+
+            float x = - mapSize / 2F;
+            while (x < mapSize / 2F)
+            {
+                if (Mathf.Abs(x) < clearRange)
+                    x = clearRange;
+
+                if (Mathf.PerlinNoise(pnx + 30F * x / mapSize, pny) < treesDensity)
+                {
+                    AddTree(x);
+                }
+
+                float dx = Random.Range(0, 1F);
+                x += minStep + dx;
+            }
+        }
+
+        private void AddTree(float x)
+        {
+            int treeIndex = Random.Range(0, trees.Count);
+            Instantiate(trees[treeIndex], new Vector3(x, trees[treeIndex].transform.position.y), Quaternion.identity, transform);
+        }
+
+        private void GenerateBigDetails()
+        {
+            float minStep = 1F;
+
+            float x = -mapSize / 2F;
+            while (x < mapSize / 2F)
+            {
+                if (Mathf.Abs(x) < clearRange)
+                    x = clearRange;
+
+                if (Random.Range(0, 1F) < bigDetailsDensity)
+                {
+                    AddBigDetail(x);
+                }
+
+                float dx = Random.Range(0, 1F);
+                x += minStep + dx;
+            }
+        }
+
+        private void AddBigDetail(float x)
+        {
+            int detailIndex = Random.Range(0, bigDetails.Count);
+            Instantiate(bigDetails[detailIndex], new Vector3(x, bigDetails[detailIndex].transform.position.y), Quaternion.identity, transform);
+        }
+
+        private void GenerateSmallDetails()
+        {
+            float minStep = 0.2F;
+
+            float x = -mapSize / 2F;
+            while (x < mapSize / 2F)
+            {
+                if (Random.Range(0, 1F) < smallDetailsDensity)
+                {
+                    AddSmallDetail(x);
+                }
+
+                float dx = Random.Range(0, 1F);
+                x += minStep + dx;
+            }
+        }
+
+        private void AddSmallDetail(float x)
+        {
+            int detailIndex = Random.Range(0, smallDetails.Count);
+            Instantiate(smallDetails[detailIndex], new Vector3(x, smallDetails[detailIndex].transform.position.y), Quaternion.identity, transform);
         }
 
         /// <summary>
@@ -95,7 +202,7 @@ namespace Assets.Source
             {
                 GameObject tile = Instantiate(
                     groundPrefab,
-                    new Vector3(groundLeftBorder - groundTileWidth / 2, groundHeight),
+                    new Vector3(groundLeftBorder - groundTileWidth / 2, groundPrefab.transform.position.y),
                     Quaternion.identity,
                     transform);
                 groundTiles.AddFirst(tile);
@@ -105,7 +212,7 @@ namespace Assets.Source
             {
                 GameObject tile = Instantiate(
                     groundPrefab,
-                    new Vector3(groundRightBorder + groundTileWidth / 2, groundHeight),
+                    new Vector3(groundRightBorder + groundTileWidth / 2, groundPrefab.transform.position.y),
                     Quaternion.identity,
                     transform);
                 groundTiles.AddLast(tile);
@@ -130,7 +237,7 @@ namespace Assets.Source
             {
                 GameObject tile = Instantiate(
                     backgroundLayer1Prefab,
-                    new Vector3(backgroundLayer1LeftBorder - backgroundLayer1TileWidth / 2, backgroundLayer1Height),
+                    new Vector3(backgroundLayer1LeftBorder - backgroundLayer1TileWidth / 2, backgroundLayer1Prefab.transform.position.y),
                     Quaternion.identity,
                     transform);
                 backgroundLayer1Tiles.AddFirst(tile);
@@ -140,7 +247,7 @@ namespace Assets.Source
             {
                 GameObject tile = Instantiate(
                     backgroundLayer1Prefab,
-                    new Vector3(backgroundLayer1RightBorder + backgroundLayer1TileWidth / 2, backgroundLayer1Height),
+                    new Vector3(backgroundLayer1RightBorder + backgroundLayer1TileWidth / 2, backgroundLayer1Prefab.transform.position.y),
                     Quaternion.identity,
                     transform);
                 backgroundLayer1Tiles.AddLast(tile);
@@ -165,7 +272,7 @@ namespace Assets.Source
             {
                 GameObject tile = Instantiate(
                     backgroundLayer2Prefab,
-                    new Vector3(backgroundLayer2LeftBorder - backgroundLayer2TileWidth / 2, backgroundLayer2Height),
+                    new Vector3(backgroundLayer2LeftBorder - backgroundLayer2TileWidth / 2, backgroundLayer2Prefab.transform.position.y),
                     Quaternion.identity,
                     transform);
                 backgroundLayer2Tiles.AddFirst(tile);
@@ -175,12 +282,46 @@ namespace Assets.Source
             {
                 GameObject tile = Instantiate(
                     backgroundLayer2Prefab,
-                    new Vector3(backgroundLayer2RightBorder + backgroundLayer2TileWidth / 2, backgroundLayer2Height),
+                    new Vector3(backgroundLayer2RightBorder + backgroundLayer2TileWidth / 2, backgroundLayer2Prefab.transform.position.y),
                     Quaternion.identity,
                     transform);
                 backgroundLayer2Tiles.AddLast(tile);
                 backgroundLayer2RightBorder += backgroundLayer2TileWidth;
             }
+
+            // Removing clouds
+            while ((tileToDelete = cloudsObjects.Last?.Value)?.transform.position.x > rightX)
+            {
+                cloudsObjects.RemoveLast();
+                Destroy(tileToDelete);
+                cloudsRightBorder -= cloudsDistance;
+            }
+            while ((tileToDelete = cloudsObjects.First?.Value)?.transform.position.x < leftX)
+            {
+                cloudsObjects.RemoveFirst();
+                Destroy(tileToDelete);
+                cloudsLeftBorder += cloudsDistance;
+            }
+            // Clouds
+            while (cloudsLeftBorder >= leftX)
+            {
+                GameObject tile = AddCloud(cloudsRightBorder - cloudsDistance / 2);
+                cloudsObjects.AddFirst(tile);
+                cloudsLeftBorder -= cloudsDistance;
+            }
+            while (cloudsRightBorder < rightX)
+            {
+                GameObject tile = AddCloud(cloudsRightBorder + cloudsDistance / 2);
+                cloudsObjects.AddLast(tile);
+                cloudsRightBorder += cloudsDistance;
+            }
+        }
+
+        private GameObject AddCloud(float x)
+        {
+            GameObject prefab = clouds[Random.Range(0, clouds.Count)];
+            prefab.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(0, 3);
+            return Instantiate(prefab, new Vector3(x, Random.Range(cloudsMinY, cloudsMaxY)), Quaternion.identity, transform);
         }
 
         /// <summary>
@@ -193,17 +334,34 @@ namespace Assets.Source
 
             foreach (GameObject tile in backgroundLayer1Tiles)
             {
-                tile.transform.position -= new Vector3(dx * layer1ParallaxFactor, 0);
+                tile.transform.position += new Vector3(dx * layer1ParallaxFactor, 0);
             }
-            backgroundLayer1LeftBorder -= dx * layer1ParallaxFactor;
-            backgroundLayer1RightBorder -= dx * layer1ParallaxFactor;
+            backgroundLayer1LeftBorder += dx * layer1ParallaxFactor;
+            backgroundLayer1RightBorder += dx * layer1ParallaxFactor;
 
             foreach (GameObject tile in backgroundLayer2Tiles)
             {
-                tile.transform.position -= new Vector3(dx * layer2ParallaxFactor, 0);
+                tile.transform.position += new Vector3(dx * layer2ParallaxFactor, 0);
             }
-            backgroundLayer2LeftBorder -= dx * layer2ParallaxFactor;
-            backgroundLayer2RightBorder -= dx * layer2ParallaxFactor;
+            backgroundLayer2LeftBorder += dx * layer2ParallaxFactor;
+            backgroundLayer2RightBorder += dx * layer2ParallaxFactor;
+
+            foreach (GameObject tile in cloudsObjects)
+            {
+                tile.transform.position += new Vector3(dx * cloudsParallaxFactor, 0);
+            }
+            cloudsLeftBorder += dx * cloudsParallaxFactor;
+            cloudsRightBorder += dx * cloudsParallaxFactor;
+        }
+
+        private void MoveClouds()
+        {
+            foreach (GameObject tile in cloudsObjects)
+            {
+                tile.transform.position += new Vector3(cloudsSpeed * Time.deltaTime, 0);
+            }
+            cloudsLeftBorder += cloudsSpeed * Time.deltaTime;
+            cloudsRightBorder += cloudsSpeed * Time.deltaTime;
         }
     }
 }

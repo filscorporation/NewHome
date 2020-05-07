@@ -2,7 +2,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Assets.Source
+namespace Assets.Source.Objects
 {
     /// <summary>
     /// Animates bees in main menu

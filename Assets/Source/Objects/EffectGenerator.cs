@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Source
+namespace Assets.Source.Objects
 {
     /// <summary>
     /// Randomly generates effects
