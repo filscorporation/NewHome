@@ -1,37 +1,34 @@
 fileFormatVersion: 2
-guid: 38f8e9060a1ca324798c470bbce389ef
+guid: 6831069370f2aa04dbd560d5659bbb0d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -235226904122077337
-    second: Sparkle_0
+      213: -5356574185940491189
+    second: Wall_0
   - first:
-      213: -2730263362883657932
-    second: Sparkle_1
+      213: 7088962694465329434
+    second: Wall_1
   - first:
-      213: 1904339956753507891
-    second: Sparkle_2
+      213: 6120593257351612271
+    second: Wall_2
   - first:
-      213: 7941583029147831871
-    second: Sparkle_3
+      213: 9040745417708803086
+    second: Wall_3
   - first:
-      213: -7802473493258189565
-    second: Sparkle_4
+      213: -112489737986242061
+    second: Wall_4
   - first:
-      213: -2158129013474626937
-    second: Sparkle_5
+      213: -1803960832170860230
+    second: Wall_5
   - first:
-      213: -8212287398446602877
-    second: Sparkle_6
+      213: -7196852996647132059
+    second: Wall_6
   - first:
-      213: -9127643453108167752
-    second: Sparkle_7
+      213: 3705615874363373525
+    second: Wall_7
   - first:
-      213: -3861246509900852653
-    second: Sparkle_8
-  - first:
-      213: -3042906004394476179
-    second: Sparkle_9
+      213: 8037226801323951975
+    second: Wall_8
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -140,211 +137,190 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Sparkle_0
+      name: Wall_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 76f4032806e4cbcf0800000000000000
-      internalID: -235226904122077337
+      spriteID: b446df18820a9a5b0800000000000000
+      internalID: -5356574185940491189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sparkle_1
+      name: Wall_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 100
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43f5e00efe72c1ad0800000000000000
-      internalID: -2730263362883657932
+      spriteID: a191a9df20e016260800000000000000
+      internalID: 7088962694465329434
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sparkle_2
+      name: Wall_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 200
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33620edd9139d6a10800000000000000
-      internalID: 1904339956753507891
+      spriteID: f670817a327b0f450800000000000000
+      internalID: 6120593257351612271
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sparkle_3
+      name: Wall_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 300
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3e80ae40bb263e60800000000000000
-      internalID: 7941583029147831871
+      spriteID: e041647be0e277d70800000000000000
+      internalID: 9040745417708803086
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sparkle_4
+      name: Wall_4
       rect:
         serializedVersion: 2
-        x: 256
+        x: 400
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 305c1f872bb08b390800000000000000
-      internalID: -7802473493258189565
+      spriteID: 3f90476ed2b507ef0800000000000000
+      internalID: -112489737986242061
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sparkle_5
+      name: Wall_5
       rect:
         serializedVersion: 2
-        x: 320
+        x: 500
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7827164b819cc02e0800000000000000
-      internalID: -2158129013474626937
+      spriteID: a31ecb15e2b07f6e0800000000000000
+      internalID: -1803960832170860230
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sparkle_6
+      name: Wall_6
       rect:
         serializedVersion: 2
-        x: 384
+        x: 600
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3856c262f18180e80800000000000000
-      internalID: -8212287398446602877
+      spriteID: 56464228454af1c90800000000000000
+      internalID: -7196852996647132059
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sparkle_7
+      name: Wall_7
       rect:
         serializedVersion: 2
-        x: 448
+        x: 700
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8bb5115c3a8145180800000000000000
-      internalID: -9127643453108167752
+      spriteID: 5d73a79210efc6330800000000000000
+      internalID: 3705615874363373525
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sparkle_8
+      name: Wall_8
       rect:
         serializedVersion: 2
-        x: 512
+        x: 800
         y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+        width: 100
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 352942bc1c81a6ac0800000000000000
-      internalID: -3861246509900852653
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sparkle_9
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d6df92b6c1d65c5d0800000000000000
-      internalID: -3042906004394476179
+      spriteID: 767c9285137f98f60800000000000000
+      internalID: 8037226801323951975
       vertices: []
       indices: 
       edges: []
