@@ -14,6 +14,14 @@ namespace Assets.Source.UIManagement
         [SerializeField] private GameObject costUIPrefab;
 
         /// <summary>
+        /// Sets energy value stored in the bar
+        /// </summary>
+        public void SetEnergyBarValue(int value, int max)
+        {
+            energyBar.SetValue(value, max);
+        }
+
+        /// <summary>
         /// Show energy bar
         /// </summary>
         public void ActivateEnergyBar()

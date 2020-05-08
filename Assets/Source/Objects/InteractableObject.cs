@@ -13,34 +13,49 @@ namespace Assets.Source.Objects
         protected abstract float Height { get; }
         private bool isInRadius = false;
         private EnergyCostUI costUI;
+        private int energyStored = 0;
 
         private void Update()
         {
-            float dist = Vector3.Distance(Player.Instance.transform.position, transform.position);
+            float dist = Mathf.Abs(Player.Instance.transform.position.x - transform.position.x);
             if (isInRadius && dist > InteractRadius)
             {
+                if (energyStored > 0)
+                {
+                    Player.Instance.GainEnergy(energyStored);
+                    energyStored = 0;
+                }
+
                 isInRadius = false;
-                HideUI();
+                Player.Instance.CurrentInteractable = null;
+                Invoke(nameof(HideUI), 1F);
             }
             if (!isInRadius && dist < InteractRadius)
             {
+                if (Player.Instance.CurrentInteractable != null)
+                    return;
+
                 isInRadius = true;
+                Player.Instance.CurrentInteractable = this;
+                if (IsInvoking(nameof(HideUI)))
+                {
+                    CancelInvoke();
+                    HideUI();
+                }
                 ShowUI();
             }
         }
 
         private void ShowUI()
         {
-            Player.Instance.CurrentInteractable = this;
             GameUIManager.Instance.ActivateEnergyBar();
             costUI = GameUIManager.Instance.ShowCostUI(transform, Cost, Height);
         }
 
         private void HideUI()
         {
-            Player.Instance.CurrentInteractable = null;
             GameUIManager.Instance.DeactivateEnergyBar();
-            Destroy(costUI.gameObject);
+            StartCoroutine(costUI.Hide());
         }
 
         /// <summary>
@@ -51,11 +66,16 @@ namespace Assets.Source.Objects
         /// <summary>
         /// Pays energy to object
         /// </summary>
-        /// <param name="amount"></param>
-        public void AddEnergy(int amount)
+        public void AddEnergy()
         {
-            // TODO: temp
-            OnComplete();
+            costUI.AddEnergy();
+            energyStored++;
+
+            if (energyStored == Cost)
+            {
+                Player.Instance.CurrentInteractable = null;
+                OnComplete();
+            }
         }
     }
 }

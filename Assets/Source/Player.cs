@@ -1,4 +1,5 @@
 ﻿using Assets.Source.Objects;
+using Assets.Source.UIManagement;
 using UnityEngine;
 
 namespace Assets.Source
@@ -17,11 +18,15 @@ namespace Assets.Source
         private Animator animator;
         private const string animatorWalkingParam = "Walking";
 
+        private int energy = 5;
+        private int energyMax = 20;
+
         public InteractableObject CurrentInteractable;
 
         private void Start()
         {
             animator = GetComponent<Animator>();
+            GameUIManager.Instance.SetEnergyBarValue(energy, energyMax);
         }
 
         private void Update()
@@ -55,9 +60,24 @@ namespace Assets.Source
             {
                 if (CurrentInteractable != null)
                 {
-                    CurrentInteractable.AddEnergy(1);
+                    if (energy > 0)
+                    {
+                        energy--;
+                        GameUIManager.Instance.SetEnergyBarValue(energy, energyMax);
+                        CurrentInteractable.AddEnergy();
+                    }
                 }
             }
+        }
+
+        /// <summary>
+        /// Adds energy to player
+        /// </summary>
+        /// <param name="value"></param>
+        public void GainEnergy(int value)
+        {
+            energy = Mathf.Min(energyMax, energy + value);
+            GameUIManager.Instance.SetEnergyBarValue(energy, energyMax);
         }
     }
 }

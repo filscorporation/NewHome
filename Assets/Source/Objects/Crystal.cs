@@ -10,7 +10,7 @@ namespace Assets.Source.Objects
     {
         protected override int Cost => 1;
         protected override float InteractRadius => 0.5F;
-        protected override float Height => 1.5F;
+        protected override float Height => 0.8F;
 
         [SerializeField] private GameObject golemPrefab;
 
