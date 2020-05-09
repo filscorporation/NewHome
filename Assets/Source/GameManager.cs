@@ -7,6 +7,7 @@ namespace Assets.Source
     /// </summary>
     public class GameManager : MonoBehaviour
     {
-    
+        private static GameManager instance;
+        public static GameManager Instance => instance ?? (instance = FindObjectOfType<GameManager>());
     }
 }

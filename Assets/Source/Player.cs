@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Source.Objects;
 using Assets.Source.Objects.Interactable;
 using Assets.Source.UIManagement;
+using Assets.Source.Units;
 using UnityEngine;
 
 namespace Assets.Source
@@ -70,6 +72,16 @@ namespace Assets.Source
                         CurrentInteractable.AddEnergy();
                     }
                 }
+            }
+
+            //Debug
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                FindObjectsOfType<GolemBase>().FirstOrDefault(g => !g.IsDead)?.Die();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                StartCoroutine(GainEnergy(5));
             }
         }
 

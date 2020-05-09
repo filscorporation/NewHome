@@ -5,20 +5,20 @@ using Random = UnityEngine.Random;
 namespace Assets.Source.Objects
 {
     /// <summary>
-    /// Animates bees in main menu
+    /// Animates y coordinate by sin function
     /// </summary>
     public class SinusAnimator : MonoBehaviour
     {
         public bool Animate = true;
-
-        private Vector2 basePosition;
+        
         [SerializeField] private float flyAmplitude = 0.5F;
         private float flyOffset;
+        private float baseY;
 
         private void Start()
         {
-            basePosition = transform.position;
             flyOffset = Random.Range(0, 1F);
+            baseY = transform.position.y;
         }
 
         private void Update()
@@ -30,8 +30,8 @@ namespace Assets.Source.Objects
         private void Fly()
         {
             transform.position = new Vector2(
-                basePosition.x,
-                basePosition.y + Mathf.Sin((DateTime.Now.Millisecond / 1000F + flyOffset) * 2 * Mathf.PI) * flyAmplitude);
+                transform.position.x,
+                baseY + Mathf.Sin((DateTime.Now.Millisecond / 1000F + flyOffset) * 2 * Mathf.PI) * flyAmplitude);
         }
     }
 }

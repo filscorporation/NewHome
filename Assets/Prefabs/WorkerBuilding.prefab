@@ -188,6 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cost: 3
+  upgradeType: 1
   itemSlots:
   - {fileID: 7955681136033354269}
   - {fileID: 7955681135642745082}

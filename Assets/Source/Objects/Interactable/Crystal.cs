@@ -21,9 +21,8 @@ namespace Assets.Source.Objects.Interactable
             IsActive = false;
             yield return new WaitForSeconds(0.5F);
             GameObject go = Instantiate(golemPrefab, new Vector3(transform.position.x, golemPrefab.transform.position.y), Quaternion.identity);
-            StartCoroutine(go.GetComponent<Golem>().FromCrystal());
-            gameObject.SetActive(false);
-            Destroy(gameObject, 2F);
+            GameManager.Instance.StartCoroutine(go.GetComponent<Golem>().FromCrystal());
+            Destroy(gameObject);
         }
     }
 }
