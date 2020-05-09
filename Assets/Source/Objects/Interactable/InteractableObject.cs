@@ -1,7 +1,8 @@
-﻿using Assets.Source.UIManagement;
+﻿using System.Collections;
+using Assets.Source.UIManagement;
 using UnityEngine;
 
-namespace Assets.Source.Objects
+namespace Assets.Source.Objects.Interactable
 {
     /// <summary>
     /// Object that activates energy UI and allows to spend it
@@ -14,15 +15,19 @@ namespace Assets.Source.Objects
         private bool isInRadius = false;
         private EnergyCostUI costUI;
         private int energyStored = 0;
+        protected bool IsActive = true;
 
-        private void Update()
+        private void FixedUpdate()
         {
+            if (!IsActive)
+                return;
+
             float dist = Mathf.Abs(Player.Instance.transform.position.x - transform.position.x);
             if (isInRadius && dist > InteractRadius)
             {
                 if (energyStored > 0)
                 {
-                    Player.Instance.GainEnergy(energyStored);
+                    StartCoroutine(Player.Instance.GainEnergy(energyStored, 1.2F));
                     energyStored = 0;
                 }
 
@@ -58,10 +63,16 @@ namespace Assets.Source.Objects
             StartCoroutine(costUI.Hide());
         }
 
+        private void HideUIOnComplete()
+        {
+            GameUIManager.Instance.DeactivateEnergyBar();
+            StartCoroutine(costUI.HideOnComplete());
+        }
+
         /// <summary>
         /// Called when player spent enough energy
         /// </summary>
-        protected abstract void OnComplete();
+        protected abstract IEnumerator OnComplete();
 
         /// <summary>
         /// Pays energy to object
@@ -73,8 +84,11 @@ namespace Assets.Source.Objects
 
             if (energyStored == Cost)
             {
+                energyStored = 0;
                 Player.Instance.CurrentInteractable = null;
-                OnComplete();
+                HideUIOnComplete();
+                isInRadius = false;
+                StartCoroutine(OnComplete());
             }
         }
     }

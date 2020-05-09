@@ -1,7 +1,9 @@
-﻿using Assets.Source.Units;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Assets.Source.Units;
 using UnityEngine;
 
-namespace Assets.Source.Objects
+namespace Assets.Source.Objects.Interactable
 {
     /// <summary>
     /// Crystals on the map can be transformed in golems
@@ -14,11 +16,14 @@ namespace Assets.Source.Objects
 
         [SerializeField] private GameObject golemPrefab;
 
-        protected override void OnComplete()
+        protected override IEnumerator OnComplete()
         {
+            IsActive = false;
+            yield return new WaitForSeconds(0.5F);
             GameObject go = Instantiate(golemPrefab, new Vector3(transform.position.x, golemPrefab.transform.position.y), Quaternion.identity);
             StartCoroutine(go.GetComponent<Golem>().FromCrystal());
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            Destroy(gameObject, 2F);
         }
     }
 }

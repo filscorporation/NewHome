@@ -14,6 +14,8 @@ namespace Assets.Source.UIManagement
         private float height = 0;
         private float maxHeight = 0;
         private float targetAlpha = 1F;
+        private Vector2 lastPosition;
+        private bool deactivating = false;
 
         [SerializeField] private GameObject energySlotPrefab;
         [SerializeField] private GameObject energyCellPrefab;
@@ -24,9 +26,10 @@ namespace Assets.Source.UIManagement
 
         private void Update()
         {
-            if (targetToFollow == null)
+            if (!deactivating && targetToFollow == null)
             {
-                Destroy(this);
+                deactivating = true;
+                Destroy(this, 0.5F);
                 Destroy(gameObject, 0.5F);
                 return;
             }
@@ -41,7 +44,18 @@ namespace Assets.Source.UIManagement
             {
                 image.color = LerpColor(image.color);
             }
-            transform.position = Camera.main.WorldToScreenPoint(targetToFollow.position + new Vector3(0, height));
+
+            Vector3 pos;
+            if (targetToFollow == null)
+            {
+                pos = lastPosition;
+            }
+            else
+            {
+                pos = targetToFollow.position;
+                lastPosition = targetToFollow.position;
+            }
+            transform.position = Camera.main.WorldToScreenPoint(pos + new Vector3(0, height));
         }
 
         private Color LerpColor(Color c)
@@ -50,11 +64,25 @@ namespace Assets.Source.UIManagement
         }
 
         /// <summary>
+        /// Hides UI when energy bar was filled
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator HideOnComplete()
+        {
+            yield return new WaitForSeconds(0.5F);
+            maxHeight = 0;
+            targetAlpha = 0F;
+            yield return new WaitForSeconds(1F);
+            Destroy(gameObject);
+        }
+
+        /// <summary>
         /// Hides UI
         /// </summary>
         /// <returns></returns>
         public IEnumerator Hide()
         {
+            yield return new WaitForSeconds(0.5F);
             maxHeight = 0;
             targetAlpha = 0F;
             foreach (GameObject slot in slots)

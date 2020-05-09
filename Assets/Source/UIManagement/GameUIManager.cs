@@ -13,6 +13,8 @@ namespace Assets.Source.UIManagement
         [SerializeField] private EnergyBar energyBar;
         [SerializeField] private GameObject costUIPrefab;
 
+        private int activationCalls = 0;
+
         /// <summary>
         /// Sets energy value stored in the bar
         /// </summary>
@@ -26,6 +28,7 @@ namespace Assets.Source.UIManagement
         /// </summary>
         public void ActivateEnergyBar()
         {
+            activationCalls++;
             energyBar.Activate();
         }
 
@@ -34,7 +37,9 @@ namespace Assets.Source.UIManagement
         /// </summary>
         public void DeactivateEnergyBar()
         {
-            energyBar.Deactivate();
+            activationCalls = Mathf.Max(activationCalls - 1, 0);
+            if (activationCalls <= 0)
+                energyBar.Deactivate();
         }
 
         /// <summary>

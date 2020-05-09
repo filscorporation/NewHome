@@ -305,7 +305,7 @@ namespace Assets.Source
             // Clouds
             while (cloudsLeftBorder >= leftX)
             {
-                GameObject tile = AddCloud(cloudsRightBorder - cloudsDistance / 2);
+                GameObject tile = AddCloud(cloudsLeftBorder - cloudsDistance / 2);
                 cloudsObjects.AddFirst(tile);
                 cloudsLeftBorder -= cloudsDistance;
             }

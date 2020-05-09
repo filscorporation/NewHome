@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
-namespace Assets.Source.Objects
+namespace Assets.Source.Objects.Interactable
 {
     /// <summary>
     /// Wall
@@ -11,9 +12,11 @@ namespace Assets.Source.Objects
         protected override float InteractRadius => 0.5F;
         protected override float Height => 2F;
 
-        protected override void OnComplete()
+        protected override IEnumerator OnComplete()
         {
+            IsActive = false;
             Debug.Log("Wall complete");
+            yield break;
         }
     }
 }

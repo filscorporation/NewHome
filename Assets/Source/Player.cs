@@ -1,4 +1,7 @@
-﻿using Assets.Source.Objects;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Assets.Source.Objects;
+using Assets.Source.Objects.Interactable;
 using Assets.Source.UIManagement;
 using UnityEngine;
 
@@ -74,8 +77,11 @@ namespace Assets.Source
         /// Adds energy to player
         /// </summary>
         /// <param name="value"></param>
-        public void GainEnergy(int value)
+        /// <param name="delay"></param>
+        public IEnumerator GainEnergy(int value, float delay = 0F)
         {
+            if (Mathf.Abs(delay) > Mathf.Epsilon)
+                yield return new WaitForSeconds(delay);
             energy = Mathf.Min(energyMax, energy + value);
             GameUIManager.Instance.SetEnergyBarValue(energy, energyMax);
         }
