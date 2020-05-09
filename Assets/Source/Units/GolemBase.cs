@@ -1,4 +1,5 @@
-﻿using Assets.Source.Objects.Interactable;
+﻿using Assets.Source.Objects;
+using Assets.Source.Objects.Interactable;
 using Assets.Source.UpgradeManagement;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ namespace Assets.Source.Units
     /// Base logic for all golem units
     /// </summary>
     [RequireComponent(typeof(Animator))]
-    public abstract class GolemBase : MonoBehaviour
+    public abstract class GolemBase : MonoBehaviour, IHitHandler
     {
         private const string animatorDieParam = "Die";
         protected Animator Animator;
@@ -36,6 +37,12 @@ namespace Assets.Source.Units
         private void Start()
         {
             Invoke(nameof(Activate), 2F);
+            MapManager.Instance.Targets.Add(transform);
+        }
+
+        private void OnDestroy()
+        {
+            MapManager.Instance.Targets.Remove(transform);
         }
 
         protected void Activate()
@@ -86,8 +93,22 @@ namespace Assets.Source.Units
         {
             CancelInvoke(nameof(Activate));
             IsDead = true;
+            MapManager.Instance.Targets.Remove(transform);
             Animator.SetTrigger(animatorDieParam);
             Destroy(Instantiate(DetransformEffect, transform.position, Quaternion.identity), 2F);
+        }
+        
+        /// <summary>
+        /// Takes a hit
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <param name="buildingDamage"></param>
+        /// <returns>True if need to bounce</returns>
+        public bool TakeHit(int damage, int buildingDamage)
+        {
+            Die();
+
+            return false;
         }
     }
 }

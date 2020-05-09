@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Assets.Source.Objects;
 using UnityEngine;
 
 namespace Assets.Source
@@ -8,6 +9,11 @@ namespace Assets.Source
     /// </summary>
     public class MapManager : MonoBehaviour
     {
+        private static MapManager instance;
+        public static MapManager Instance => instance ?? (instance = FindObjectOfType<MapManager>());
+        public ObjectManager Targets = new ObjectManager();
+        public ObjectManager Interactables = new ObjectManager();
+
         [SerializeField] [Range(10, 1000)] private int mapSize = 100;
         [SerializeField] [Range(1, 100)] private int clearRange = 10;
 
@@ -69,6 +75,12 @@ namespace Assets.Source
             GenerateSmallDetails();
         }
 
+        private void FixedUpdate()
+        {
+            Targets.Sort();
+            Interactables.Sort();
+        }
+
         private void Update()
         {
             float dx = parallaxPivot.transform.position.x - pivotLastTileRebuldingX;
@@ -84,6 +96,12 @@ namespace Assets.Source
 
             MoveClouds();
         }
+
+        /// <summary>
+        /// Returns map size in units
+        /// </summary>
+        /// <returns></returns>
+        public int GetMapSize() => mapSize;
 
         private void Initialize()
         {

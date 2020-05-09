@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Source.Objects;
@@ -13,12 +14,12 @@ namespace Assets.Source
     /// Player
     /// </summary>
     [RequireComponent(typeof(Animator))]
-    public class Player : MonoBehaviour
+    public class Player : MonoBehaviour, IHitHandler
     {
         private static Player instance;
         public static Player Instance => instance ?? (instance = FindObjectOfType<Player>());
 
-        [SerializeField] private float movementSpeed = 1F;
+        [Range(0, 20F)] [SerializeField] private float movementSpeed = 1F;
 
         private Animator animator;
         private const string animatorWalkingParam = "Walking";
@@ -32,11 +33,17 @@ namespace Assets.Source
         {
             animator = GetComponent<Animator>();
             GameUIManager.Instance.SetEnergyBarValue(energy, energyMax);
+            MapManager.Instance.Targets.Add(transform);
         }
 
         private void Update()
         {
             ReadInput();
+        }
+
+        private void OnDestroy()
+        {
+            MapManager.Instance.Targets.Remove(transform);
         }
 
         private void ReadInput()
@@ -96,6 +103,30 @@ namespace Assets.Source
                 yield return new WaitForSeconds(delay);
             energy = Mathf.Min(energyMax, energy + value);
             GameUIManager.Instance.SetEnergyBarValue(energy, energyMax);
+        }
+
+        private void Die()
+        {
+            Debug.Log("Player dead");
+        }
+
+        /// <summary>
+        /// Takes a hit
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <param name="buildingDamage"></param>
+        /// <returns>True if need to bounce</returns>
+        public bool TakeHit(int damage, int buildingDamage)
+        {
+            if (energy == 0)
+                Die();
+            else
+            {
+                energy = Mathf.Max(0, energy - damage);
+                GameUIManager.Instance.SetEnergyBarValue(energy, energyMax);
+            }
+
+            return false;
         }
     }
 }

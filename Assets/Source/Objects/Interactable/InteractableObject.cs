@@ -17,6 +17,16 @@ namespace Assets.Source.Objects.Interactable
         private int energyStored = 0;
         protected bool IsActive = true;
 
+        private void Start()
+        {
+            MapManager.Instance.Interactables.Add(transform);
+        }
+
+        private void OnDestroy()
+        {
+            MapManager.Instance.Interactables.Remove(transform);
+        }
+
         private void FixedUpdate()
         {
             if (!IsActive)
