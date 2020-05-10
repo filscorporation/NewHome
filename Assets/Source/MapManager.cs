@@ -12,7 +12,9 @@ namespace Assets.Source
         private static MapManager instance;
         public static MapManager Instance => instance ?? (instance = FindObjectOfType<MapManager>());
         public ObjectManager Targets = new ObjectManager();
+        public ObjectManager Enemies = new ObjectManager();
         public ObjectManager Interactables = new ObjectManager();
+        public ObjectManager Walls = new ObjectManager();
 
         [SerializeField] [Range(10, 1000)] private int mapSize = 100;
         [SerializeField] [Range(1, 100)] private int clearRange = 10;
@@ -78,7 +80,9 @@ namespace Assets.Source
         private void FixedUpdate()
         {
             Targets.Sort();
+            Enemies.Sort();
             Interactables.Sort();
+            Walls.Sort();
         }
 
         private void Update()

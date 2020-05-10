@@ -167,3 +167,4 @@ MonoBehaviour:
   CrystalPrefab: {fileID: 7250645971777192761, guid: 061afec45b4314144afc3741385efee3,
     type: 3}
   Speed: 1
+  dieEffectTransform: {fileID: 4483405326740223966}

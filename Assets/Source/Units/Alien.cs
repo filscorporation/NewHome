@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Assets.Source.Objects;
 using Assets.Source.Objects.Interactable;
 using UnityEngine;
@@ -23,29 +22,53 @@ namespace Assets.Source.Units
         private Animator animator;
 
         [Range(0, 20F)] [SerializeField] private float speed;
-        [Range(1, 50)] [SerializeField] private float health;
+        [Range(1, 50)] [SerializeField] private int health;
         [Range(1, 10)] [SerializeField] private int damage;
         [Range(1, 20)] [SerializeField] private int buildingDamage;
         [Range(0, 10F)] [SerializeField] private float jumpRange;
         [Range(0, 3F)] [SerializeField] private float jumpHeight;
         [Range(0, 5F)] [SerializeField] private float chargeTime;
-        [Range(0, 1F)] [SerializeField] private float attackRange;
+        [Range(0, 5F)] [SerializeField] private float sizeX;
 
         private int direction = 1;
         private bool isActive = true;
         private GameObject target;
         private float jumpSpeedX;
         private float jumpSpeedY;
-        private const float groundLevel = -3.5F;
+        private const float groundLevel = -3.765F;
         private const float gravity = 10F;
+        private float lastX = 0;
 
         private enum State
         {
+            /// <summary>
+            /// Walking through the map to find target
+            /// </summary>
             Walk,
+
+            /// <summary>
+            /// Found target, charging jump attack
+            /// </summary>
             Charge,
+
+            /// <summary>
+            /// In the air with his attack to hit anything
+            /// </summary>
             Jump,
+
+            /// <summary>
+            /// Hitted something like wall or armoured golem - bounce back
+            /// </summary>
             Bounce,
+
+            /// <summary>
+            /// Hitted something like player of unprotected golem - take energy and land
+            /// </summary>
             Fed,
+
+            /// <summary>
+            /// Finished its job - died or took energy - dig itself into the ground
+            /// </summary>
             Ground,
         }
 
@@ -64,6 +87,8 @@ namespace Assets.Source.Units
                 direction = -1;
             }
             transform.localScale = new Vector3(direction, 1);
+            lastX = transform.position.x;
+            MapManager.Instance.Enemies.Add(transform, sizeX);
         }
 
         private void FixedUpdate()
@@ -97,7 +122,9 @@ namespace Assets.Source.Units
                     {
                         // If died in the air
                         if (isDead)
+                        {
                             Die();
+                        }
                         else
                         {
                             state = State.Walk;
@@ -105,9 +132,11 @@ namespace Assets.Source.Units
                             break;
                         }
                     }
+
+                    float range = Mathf.Abs(transform.position.x - lastX) + sizeX / 2;
                     GameObject hit = direction == 1
-                        ? MapManager.Instance.Targets.FirstToTheRight(transform.position.x, attackRange)?.gameObject
-                        : MapManager.Instance.Targets.FirstToTheLeft(transform.position.x, attackRange)?.gameObject;
+                        ? MapManager.Instance.Targets.FirstToTheRight(transform.position.x, range)?.gameObject
+                        : MapManager.Instance.Targets.FirstToTheLeft(transform.position.x, range)?.gameObject;
                     if (hit != null)
                     {
                         Camera.main.GetComponent<CameraController>().Shake(0.05F);
@@ -132,7 +161,9 @@ namespace Assets.Source.Units
                     {
                         // If died in the air
                         if (isDead)
+                        {
                             Die();
+                        }
                         else
                         {
                             state = State.Walk;
@@ -154,6 +185,11 @@ namespace Assets.Source.Units
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void LateUpdate()
+        {
+            lastX = transform.position.x;
         }
 
         private IEnumerator Charge()
@@ -178,7 +214,8 @@ namespace Assets.Source.Units
             state = State.Ground;
             yield return new WaitForSeconds(0.1F);
             animator.SetTrigger(groundAnimatorParam);
-            yield break;
+            Destroy(gameObject, 2F);
+            MapManager.Instance.Enemies.Remove(transform);
         }
         
         /// <summary>
@@ -187,23 +224,35 @@ namespace Assets.Source.Units
         /// <param name="dmg"></param>
         public void TakeDamage(int dmg)
         {
+            if (isDead)
+                return;
+
+            StartCoroutine(AnimateHit());
             health -= dmg;
-            if (health < 0)
+            if (health < Mathf.Epsilon)
             {
                 Die();
             }
         }
 
+        private IEnumerator AnimateHit()
+        {
+            GetComponent<SpriteRenderer>().color = Color.red;
+            yield return new WaitForSeconds(0.1F);
+            GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
         private void Die()
         {
-            isDead = true;
-            if (state == State.Walk || state == State.Charge)
+            if (isDead || state == State.Walk || state == State.Charge)
             {
                 state = State.Ground;
                 animator.SetTrigger(groundAnimatorParam);
                 Destroy(gameObject, 2F);
                 isActive = false;
             }
+            isDead = true;
+            MapManager.Instance.Enemies.Remove(transform);
         }
     }
 }

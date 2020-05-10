@@ -20,6 +20,7 @@ namespace Assets.Source
         public static Player Instance => instance ?? (instance = FindObjectOfType<Player>());
 
         [Range(0, 20F)] [SerializeField] private float movementSpeed = 1F;
+        [Range(0, 2F)] [SerializeField] private float sizeX = 0.3F;
 
         private Animator animator;
         private const string animatorWalkingParam = "Walking";
@@ -33,7 +34,7 @@ namespace Assets.Source
         {
             animator = GetComponent<Animator>();
             GameUIManager.Instance.SetEnergyBarValue(energy, energyMax);
-            MapManager.Instance.Targets.Add(transform);
+            MapManager.Instance.Targets.Add(transform, sizeX);
         }
 
         private void Update()

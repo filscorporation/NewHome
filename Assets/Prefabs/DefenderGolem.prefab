@@ -32,6 +32,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6487526598577982298}
+  - {fileID: 5700647877805669183}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -137,6 +138,14 @@ MonoBehaviour:
   CrystalPrefab: {fileID: 7250645971777192761, guid: 061afec45b4314144afc3741385efee3,
     type: 3}
   Speed: 1.1
+  sizeX: 0.5
+  shootMaxRange: 2.5
+  shootAccuracy: 0.65
+  shootDamage: 1
+  chargeTimeout: 3
+  shootStartPoint: {fileID: 5700647877805669183}
+  projectilePrefab: {fileID: 1648718401315491127, guid: 252f0ec62f20a0c4aab4105a2c66ae15,
+    type: 3}
 --- !u!1 &4396217938735901937
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,4 +175,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1398945354222777165}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6582604041941598197
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5700647877805669183}
+  m_Layer: 0
+  m_Name: ShootStartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5700647877805669183
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6582604041941598197}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.2345, y: 0.3438, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1398945354222777165}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

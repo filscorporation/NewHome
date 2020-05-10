@@ -19,14 +19,21 @@ namespace Assets.Source.Units
         public GameObject DetransformEffect;
         public GameObject CrystalPrefab;
 
+        /// <summary>
+        /// Scales some parameters for randomness
+        /// </summary>
+        protected const float randomiseFactor = 0.7F;
+
         [SerializeField] protected float Speed = 1F;
+        [Range(0, 5F)] [SerializeField] private float sizeX = 0.5F;
         protected Transform center;
-        protected Transform target;
+        protected float targetPoint;
         private const float wanderWaitMin = 3F;
         private const float wanderWaitMax = 10F;
         private float wanderWaitTimer = wanderWaitMin;
         private float wanderSpeedModifier = 0.5F;
         private float? wanderWayPoint;
+        protected int direction = 1;
 
         private void Awake()
         {
@@ -36,8 +43,14 @@ namespace Assets.Source.Units
 
         private void Start()
         {
+            Initialize();
             Invoke(nameof(Activate), 2F);
-            MapManager.Instance.Targets.Add(transform);
+            MapManager.Instance.Targets.Add(transform, sizeX);
+        }
+
+        protected virtual void Initialize()
+        {
+
         }
 
         private void OnDestroy()
@@ -52,9 +65,10 @@ namespace Assets.Source.Units
 
         protected void MoveToTarget()
         {
-            transform.localScale = transform.position.x < target.position.x ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
+            direction = transform.position.x < targetPoint ? 1 : -1;
+            transform.localScale = new Vector3(direction, 1, 1);
             transform.position = new Vector3(
-                Mathf.MoveTowards(transform.position.x, target.position.x, Time.deltaTime * Speed),
+                Mathf.MoveTowards(transform.position.x, targetPoint, Time.deltaTime * Speed),
                 transform.position.y);
         }
 
@@ -67,7 +81,8 @@ namespace Assets.Source.Units
         {
             if (wanderWayPoint.HasValue)
             {
-                transform.localScale = transform.position.x < wanderWayPoint.Value ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
+                direction = transform.position.x < wanderWayPoint.Value ? 1 : -1;
+                transform.localScale = new Vector3(direction, 1, 1);
                 transform.position = new Vector3(
                     Mathf.MoveTowards(transform.position.x, wanderWayPoint.Value, Time.deltaTime * Speed * wanderSpeedModifier),
                     transform.position.y);

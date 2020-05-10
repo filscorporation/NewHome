@@ -4,6 +4,7 @@ using System.Linq;
 using Assets.Source.Objects.Interactable;
 using Assets.Source.UpgradeManagement;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Source.Units
 {
@@ -13,9 +14,10 @@ namespace Assets.Source.Units
     public class Golem : GolemBase
     {
         private const string animatorCrystalParam = "FromCrystal";
-        private const string dieEffectTransformName = "DieEffectTransform";
+        [SerializeField] private Transform dieEffectTransform;
         private Upgrade targetUpgrade;
         private const float toCenterDist = 2F;
+        private float toCenterDistRnd = 2F;
         private const float toUpgradeDist = 0.5F;
         private const float checkUpgradeTimeout = 2F;
         private float checkUpgradeTimer = 0F;
@@ -23,12 +25,32 @@ namespace Assets.Source.Units
 
         private enum State
         {
+            /// <summary>
+            /// Golem just spawned and has no tasks to do
+            /// </summary>
             None,
+
+            /// <summary>
+            /// Moving to center of the base to wait here for tasks
+            /// </summary>
             ToCenter,
+            
+            /// <summary>
+            /// Golem just wanders around center waiting for upgrades
+            /// </summary>
             Idle,
+
+            /// <summary>
+            /// Got info about available upgrade, on his way to it
+            /// </summary>
             ToUpgrade,
         }
         private State state = State.None;
+
+        protected override void Initialize()
+        {
+            toCenterDistRnd = Random.Range(toCenterDist * randomiseFactor, toCenterDist / randomiseFactor);
+        }
 
         private void Update()
         {
@@ -41,18 +63,18 @@ namespace Assets.Source.Units
                     targetUpgrade = UpgradePool.Instance.TryGet();
                     if (targetUpgrade == null)
                     {
-                        target = center;
+                        targetPoint = center.position.x;
                         state = State.ToCenter;
                     }
                     else
                     {
-                        target = targetUpgrade.Holder.GetTransform();
+                        targetPoint = targetUpgrade.Holder.GetTransform().position.x;
                         state = State.ToUpgrade;
                     }
                     break;
                 case State.ToCenter:
                     MoveToTarget();
-                    if (Mathf.Abs(transform.position.x - target.position.x) < toCenterDist)
+                    if (Mathf.Abs(transform.position.x - targetPoint) < toCenterDistRnd)
                         state = State.Idle;
                     break;
                 case State.Idle:
@@ -66,7 +88,7 @@ namespace Assets.Source.Units
                         }
                         else
                         {
-                            target = targetUpgrade.Holder.GetTransform();
+                            targetPoint = targetUpgrade.Holder.GetTransform().position.x;
                             state = State.ToUpgrade;
                         }
                     }
@@ -74,7 +96,7 @@ namespace Assets.Source.Units
                     break;
                 case State.ToUpgrade:
                     MoveToTarget();
-                    if (Mathf.Abs(transform.position.x - target.position.x) < toUpgradeDist)
+                    if (Mathf.Abs(transform.position.x - targetPoint) < toUpgradeDist)
                         TakeUpgrade();
                     break;
                 default:
@@ -92,7 +114,7 @@ namespace Assets.Source.Units
 
             IsActive = false;
             GameObject prefab = UpgradePool.Instance.GetPrefab(targetUpgrade.Type);
-            Vector2 dieEffectPos = GetComponentsInChildren<Transform>().First(c => c.name == dieEffectTransformName).position;
+            Vector2 dieEffectPos = dieEffectTransform.position;
             Instantiate(prefab, dieEffectPos, Quaternion.identity);
             Destroy(gameObject);
         }
@@ -104,7 +126,6 @@ namespace Assets.Source.Units
             if (state == State.ToUpgrade)
             {
                 UpgradePool.Instance.Add(targetUpgrade);
-                target = null;
             }
 
             state = State.None;

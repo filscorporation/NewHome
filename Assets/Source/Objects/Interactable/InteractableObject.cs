@@ -19,7 +19,7 @@ namespace Assets.Source.Objects.Interactable
 
         private void Start()
         {
-            MapManager.Instance.Interactables.Add(transform);
+            MapManager.Instance.Interactables.Add(transform, 0);
         }
 
         private void OnDestroy()

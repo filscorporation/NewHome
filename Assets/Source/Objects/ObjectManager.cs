@@ -14,17 +14,19 @@ namespace Assets.Source.Objects
         {
             public readonly float X;
             public readonly Transform Transform;
+            public readonly float Size;
 
-            public XObject(float x, Transform transform)
+            public XObject(float x, Transform transform, float size)
             {
                 X = x;
                 Transform = transform;
+                Size = size;
             }
 
             public int CompareTo(object obj)
             {
                 if (obj is XObject b)
-                    return X < b.X ? -1 : 1;
+                    return X + Size / 2 < b.X - b.Size / 2 ? -1 : X - Size / 2 > b.X + b.Size / 2 ? 1 : 0;
 
                 throw new NotImplementedException();
             }
@@ -40,7 +42,7 @@ namespace Assets.Source.Objects
 
         private XObjectComparer comparer;
 
-        private readonly List<Transform> objects = new List<Transform>();
+        private readonly List<XObject> objects = new List<XObject>();
         private List<XObject> objectsSorted = new List<XObject>();
 
         private void Start()
@@ -51,16 +53,20 @@ namespace Assets.Source.Objects
         public void Sort()
         {
             objectsSorted.Clear();
-            objectsSorted = objects.OrderBy(o => o.position.x).Select(o => new XObject(o.position.x, o)).ToList();
+            objectsSorted = objects
+                .OrderBy(o => o.Transform.position.x)
+                .Select(o => new XObject(o.Transform.position.x, o.Transform, o.Size))
+                .ToList();
         }
 
         /// <summary>
         /// Add object to tracked list
         /// </summary>
         /// <param name="obj"></param>
-        public void Add(Transform obj)
+        /// <param name="size"></param>
+        public void Add(Transform obj, float size)
         {
-            objects.Add(obj);
+            objects.Add(new XObject(obj.position.x, obj, size));
         }
 
         /// <summary>
@@ -69,7 +75,31 @@ namespace Assets.Source.Objects
         /// <param name="obj"></param>
         public void Remove(Transform obj)
         {
-            objects.Remove(obj);
+            objects.RemoveAll(o => o.Transform == obj);
+        }
+
+        /// <summary>
+        /// Returns far left object or null if non
+        /// </summary>
+        /// <returns></returns>
+        public Transform FarLeft()
+        {
+            if (!objectsSorted.Any())
+                return null;
+
+            return objectsSorted.First().Transform;
+        }
+
+        /// <summary>
+        /// Returns far right object or null if non
+        /// </summary>
+        /// <returns></returns>
+        public Transform FarRight()
+        {
+            if (!objectsSorted.Any())
+                return null;
+
+            return objectsSorted.Last().Transform;
         }
 
         /// <summary>
@@ -83,14 +113,14 @@ namespace Assets.Source.Objects
             if (!objectsSorted.Any())
                 return null;
 
-            if (objectsSorted.First().X > x + range)
+            if (objectsSorted.First().X - objectsSorted.First().Size / 2 > x + range)
                 // Closest object is too far, no need to check other
                 return null;
-            if (objectsSorted.First().X > x)
+            if (objectsSorted.First().X - objectsSorted.First().Size > x)
                 // Closest left object is in range
                 return objectsSorted.First().Transform;
 
-            int i = objectsSorted.BinarySearch(new XObject(x, null), comparer);
+            int i = objectsSorted.BinarySearch(new XObject(x, null, 0), comparer);
             if (i >= 0)
             {
                 return objectsSorted[i].Transform;
@@ -138,7 +168,7 @@ namespace Assets.Source.Objects
                 // Closest right object is in range
                 return objectsSorted.Last().Transform;
 
-            int i = objectsSorted.BinarySearch(new XObject(x, null), comparer);
+            int i = objectsSorted.BinarySearch(new XObject(x, null, 0), comparer);
             if (i >= 0)
             {
                 return objectsSorted[i].Transform;

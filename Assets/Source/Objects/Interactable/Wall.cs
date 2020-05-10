@@ -16,16 +16,19 @@ namespace Assets.Source.Objects.Interactable
         private int health;
         [SerializeField] private GameObject hitEffect;
         [SerializeField] private Transform hitEffectTransform;
+        [SerializeField] private float sizeX = 0F;
 
         private void Start()
         {
-            MapManager.Instance.Targets.Add(transform);
+            MapManager.Instance.Targets.Add(transform, sizeX);
+            MapManager.Instance.Walls.Add(transform, sizeX);
             health = maxHealth;
         }
 
         private void OnDestroy()
         {
             MapManager.Instance.Targets.Remove(transform);
+            MapManager.Instance.Walls.Remove(transform);
         }
 
         protected override IEnumerator OnComplete()
