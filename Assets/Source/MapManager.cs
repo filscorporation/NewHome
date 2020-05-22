@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Assets.Source
 {
     /// <summary>
-    /// Controlls map tiles and background
+    /// Controls map tiles and background
     /// </summary>
     public class MapManager : MonoBehaviour
     {
@@ -52,7 +52,7 @@ namespace Assets.Source
         private float cameraWidth;
 
         [SerializeField] public Transform parallaxPivot;
-        private float pivotLastTileRebuldingX;
+        private float pivotLastTileRebuildingX;
         private const float rebuildingStep = 1F;
         private float pivotLastX;
 
@@ -63,6 +63,9 @@ namespace Assets.Source
         [SerializeField] [Range(0, 1F)] private float smallDetailsDensity;
         [SerializeField] private List<GameObject> bigDetails;
         [SerializeField] [Range(0, 1F)] private float bigDetailsDensity;
+        [SerializeField] private GameObject wallBase;
+        [SerializeField] [Range(3F, 30F)] private float wallBaseMinDist = 8F;
+        [SerializeField] [Range(3F, 30F)] private float wallBaseMaxDist = 15F;
 
         private Random random;
 
@@ -75,6 +78,7 @@ namespace Assets.Source
             GenerateTrees();
             GenerateBigDetails();
             GenerateSmallDetails();
+            GenerateBuildingBases();
         }
 
         private void FixedUpdate()
@@ -87,12 +91,12 @@ namespace Assets.Source
 
         private void Update()
         {
-            float dx = parallaxPivot.transform.position.x - pivotLastTileRebuldingX;
+            float dx = parallaxPivot.transform.position.x - pivotLastTileRebuildingX;
             // If pivot didn't really move, then there is no reason to rebuild tiles
             if (Mathf.Abs(dx) > rebuildingStep)
             {
                 DrawTiles();
-                pivotLastTileRebuldingX = parallaxPivot.transform.position.x;
+                pivotLastTileRebuildingX = parallaxPivot.transform.position.x;
             }
             Parallax();
 
@@ -117,7 +121,7 @@ namespace Assets.Source
             sprite = backgroundLayer2Prefab.GetComponent<SpriteRenderer>().sprite;
             backgroundLayer2TileWidth = sprite.rect.width / sprite.pixelsPerUnit * 0.999F;
             pivotLastX = parallaxPivot.transform.position.x;
-            pivotLastTileRebuldingX = parallaxPivot.transform.position.x;
+            pivotLastTileRebuildingX = parallaxPivot.transform.position.x;
         }
 
         private void GenerateTrees()
@@ -195,6 +199,26 @@ namespace Assets.Source
         {
             int detailIndex = Random.Range(0, smallDetails.Count);
             Instantiate(smallDetails[detailIndex], new Vector3(x, smallDetails[detailIndex].transform.position.y), Quaternion.identity, transform);
+        }
+
+        private void GenerateBuildingBases()
+        {
+            float x = -mapSize / 2F;
+            while (x < mapSize / 2F)
+            {
+                if (x < -wallBaseMaxDist || x > wallBaseMaxDist)
+                {
+                    AddWallBase(x);
+                }
+
+                float dx = Random.Range(wallBaseMinDist, wallBaseMaxDist);
+                x += dx;
+            }
+        }
+
+        private void AddWallBase(float x)
+        {
+            Instantiate(wallBase, new Vector3(x, wallBase.transform.position.y), Quaternion.identity, transform);
         }
 
         /// <summary>

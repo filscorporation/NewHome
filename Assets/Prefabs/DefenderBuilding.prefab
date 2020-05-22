@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7f744fee2cd4554f8cbd32774f5a98e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cost: 3
+  upgradeType: 0
   itemSlots:
   - {fileID: 6744856505109672277}
   - {fileID: 146061494007407339}

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
 using Assets.Source.Objects;
 using Assets.Source.Objects.Interactable;
@@ -90,6 +88,13 @@ namespace Assets.Source
             if (Input.GetKeyDown(KeyCode.E))
             {
                 StartCoroutine(GainEnergy(5));
+            }
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                foreach (Wall wall in FindObjectsOfType<Wall>())
+                {
+                    wall.TakeHit(0, 10);
+                }
             }
         }
 

@@ -20,6 +20,12 @@ namespace Assets.Source.Objects.Interactable
         private void Start()
         {
             MapManager.Instance.Interactables.Add(transform, 0);
+            Initialize();
+        }
+
+        protected virtual void Initialize()
+        {
+
         }
 
         private void OnDestroy()

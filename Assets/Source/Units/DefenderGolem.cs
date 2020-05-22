@@ -3,6 +3,7 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using Assets.Source.UpgradeManagement;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 namespace Assets.Source.Units
@@ -32,6 +33,7 @@ namespace Assets.Source.Units
         protected static int leftSideDefendersCount = 0;
         protected static int rightSideDefendersCount = 0;
         private int defendSide = 0;
+        private bool waitForDefend = false;
 
         private enum State
         {
@@ -100,7 +102,6 @@ namespace Assets.Source.Units
             Random.InitState(rnd.Next());
             toCenterDistRnd = Random.Range(toCenterDist * randomiseFactor, toCenterDist / randomiseFactor);
             toDefendDistRnd = Random.Range(toDefendDistMin, toDefendDistMax);
-            Debug.Log(toDefendDistRnd);
         }
 
         private void Update()
@@ -148,8 +149,10 @@ namespace Assets.Source.Units
 
                     if (!anyEnemy && DayNightCycleController.CycleState == CycleState.Day)
                     {
-                        state = State.WanderOutside;
-                        break;
+                        if (!waitForDefend)
+                        {
+                            StartCoroutine(EndDefend());
+                        }
                     }
 
                     if (substate != SubState.Shoot)
@@ -293,6 +296,14 @@ namespace Assets.Source.Units
             }
 
             return false;
+        }
+
+        private IEnumerator EndDefend()
+        {
+            waitForDefend = true;
+            yield return new WaitForSeconds(1F);
+            waitForDefend = false;
+            state = State.WanderOutside;
         }
 
         private IEnumerator Charge()

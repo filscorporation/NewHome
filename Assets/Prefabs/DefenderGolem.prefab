@@ -139,7 +139,7 @@ MonoBehaviour:
     type: 3}
   Speed: 1.1
   sizeX: 0.5
-  shootMaxRange: 2.5
+  shootMaxRange: 3
   shootAccuracy: 0.65
   shootDamage: 1
   chargeTimeout: 3

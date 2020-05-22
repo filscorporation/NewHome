@@ -196,7 +196,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6cde3b0d6721814791d61a1541f69b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 25
+  maxHealth: 50
   hitEffect: {fileID: 2018723523952214360, guid: 29db5b1d287e2e740b37640abfc20554,
     type: 3}
   hitEffectTransform: {fileID: 5967931235209262603}
+  sizeX: 0
+  buildingBase: {fileID: 8208101117274876732, guid: 47d2ffcf0a2a25340ac3e225f390a823,
+    type: 3}
